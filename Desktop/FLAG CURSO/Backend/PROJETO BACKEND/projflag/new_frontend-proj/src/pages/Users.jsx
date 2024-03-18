@@ -3,7 +3,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 import api from "../services/api";
 import Footer from "../components/Footer";
 import "../styles/index.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate /* , useLocation */ } from "react-router-dom";
 
 function Users() {
     const [users, setUsers] = useState([]);
@@ -11,6 +11,8 @@ function Users() {
     const { user, token, notification, setUser, setToken, setNotification } =
         useStateContext();
     const navigate = useNavigate();
+    /*     const location = useLocation();
+    const { user, token } = location.state; */
 
     useEffect(() => {
         getUsers();
@@ -19,6 +21,7 @@ function Users() {
     useEffect(() => {
         api.get("user").then(({ data }) => {
             setUser(data);
+            console.log(data);
         });
     }, [setUser]);
 
@@ -28,7 +31,7 @@ function Users() {
 
     const onDelete = (user) => {
         if (window.confirm(`Are you sure you want to delete ${user.name}?`)) {
-            api.delete(`/users/${user.id}`).then(() => {
+            api.delete(`/user_delete/${user.id}`).then(() => {
                 setNotification("User deleted sucessfully!");
                 getUsers();
             });
@@ -95,125 +98,125 @@ function Users() {
                     {/* <!-- nav content --> */}
                     <ul className="mt-2 text-gray-300 font-semibold">
                         <li className="mt-3 t">
-                            <a
-                                href="#"
-                                className="flex flex-col items-center text-sm capitalize"
-                            >
-                                <svg
-                                    className="h-8 w-8 text-gray-400"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth={2}
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    {" "}
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />{" "}
-                                    <circle cx="9" cy="7" r="4" />{" "}
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />{" "}
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                </svg>
-                                <span>
-                                    <Link to="/users">All Users</Link>
-                                </span>
-                            </a>
+                            <div className="flex flex-col items-center text-sm capitalize">
+                                <Link to="/users">
+                                    <svg
+                                        className="h-8 w-8 text-gray-400"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        {" "}
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />{" "}
+                                        <circle cx="9" cy="7" r="4" />{" "}
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />{" "}
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                    </svg>
+                                    <span>All Users</span>
+                                </Link>
+                            </div>
                         </li>
                         <li className="mt-3 t">
-                            <a
-                                href="#"
-                                className="flex flex-col items-center text-sm capitalize"
-                            >
-                                <svg
-                                    className="h-8 w-8 text-gray-400"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    {" "}
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />{" "}
-                                    <circle cx="8.5" cy="7" r="4" />{" "}
-                                    <line x1="20" y1="8" x2="20" y2="14" />{" "}
-                                    <line x1="23" y1="11" x2="17" y2="11" />
-                                </svg>
-                                <span className="ml-3">
-                                    <Link to="/add_doctors">
+                            <div className="flex flex-col items-center text-sm capitalize">
+                                <Link to="/add_doctors">
+                                    <svg
+                                        className="h-8 w-8 text-gray-400"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        {" "}
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />{" "}
+                                        <circle cx="8.5" cy="7" r="4" />{" "}
+                                        <line x1="20" y1="8" x2="20" y2="14" />{" "}
+                                        <line x1="23" y1="11" x2="17" y2="11" />
+                                    </svg>
+                                    <span className="ml-3">
                                         Add new Doctors
-                                    </Link>
-                                </span>
-                            </a>
+                                    </span>
+                                </Link>
+                            </div>
                         </li>
                         <li className="mt-3 t">
-                            <a
-                                href="#"
-                                className="flex flex-col items-center text-sm capitalize"
-                            >
-                                <svg
-                                    className="h-8 w-8 text-gray-400"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    {" "}
-                                    <path
-                                        stroke="none"
-                                        d="M0 0h24v24H0z"
-                                    />{" "}
-                                    <circle cx="9" cy="7" r="4" />{" "}
-                                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />{" "}
-                                    <path d="M16 11h6m-3 -3v6" />
-                                </svg>
-                                <span className="ml-3">
-                                    <Link to="/add_patients">
+                            <div className="flex flex-col items-center text-sm capitalize">
+                                <Link to="/add_patients">
+                                    <svg
+                                        className="h-8 w-8 text-gray-400"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        stroke="currentColor"
+                                        fill="none"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        {" "}
+                                        <path
+                                            stroke="none"
+                                            d="M0 0h24v24H0z"
+                                        />{" "}
+                                        <circle cx="9" cy="7" r="4" />{" "}
+                                        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />{" "}
+                                        <path d="M16 11h6m-3 -3v6" />
+                                    </svg>
+                                    <span className="ml-3">
                                         Add new Patients
-                                    </Link>
-                                </span>
-                            </a>
+                                    </span>
+                                </Link>
+                            </div>
                         </li>
                         <li className="mt-3 t">
-                            <a
-                                href="#"
-                                className="flex flex-col items-center text-sm capitalize"
-                            >
-                                <svg
-                                    className="h-8 w-8 text-gray-400"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    {" "}
-                                    <path
-                                        stroke="none"
-                                        d="M0 0h24v24H0z"
-                                    />{" "}
-                                    <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2" />{" "}
-                                    <rect
-                                        x="9"
-                                        y="3"
-                                        width="6"
-                                        height="4"
-                                        rx="2"
-                                    />{" "}
-                                    <line x1="9" y1="12" x2="9.01" y2="12" />{" "}
-                                    <line x1="13" y1="12" x2="15" y2="12" />{" "}
-                                    <line x1="9" y1="16" x2="9.01" y2="16" />{" "}
-                                    <line x1="13" y1="16" x2="15" y2="16" />
-                                </svg>
-                                <span>Add Appointment</span>
-                            </a>
+                            <div className="flex flex-col items-center text-sm capitalize">
+                                <Link to="/appointments">
+                                    <svg
+                                        className="h-8 w-8 text-gray-400"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        stroke="currentColor"
+                                        fill="none"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        {" "}
+                                        <path
+                                            stroke="none"
+                                            d="M0 0h24v24H0z"
+                                        />{" "}
+                                        <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2" />{" "}
+                                        <rect
+                                            x="9"
+                                            y="3"
+                                            width="6"
+                                            height="4"
+                                            rx="2"
+                                        />{" "}
+                                        <line
+                                            x1="9"
+                                            y1="12"
+                                            x2="9.01"
+                                            y2="12"
+                                        />{" "}
+                                        <line x1="13" y1="12" x2="15" y2="12" />{" "}
+                                        <line
+                                            x1="9"
+                                            y1="16"
+                                            x2="9.01"
+                                            y2="16"
+                                        />{" "}
+                                        <line x1="13" y1="16" x2="15" y2="16" />
+                                    </svg>
+                                    <span>Add Appointment</span>
+                                </Link>
+                            </div>
                         </li>
                     </ul>
                 </nav>

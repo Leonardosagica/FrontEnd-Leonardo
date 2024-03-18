@@ -103,7 +103,7 @@ function AddDoctors() {
                     <ul className="mt-2 text-gray-300 font-semibold">
                         <li className="mt-3 t">
                             <div className="flex flex-col items-center text-sm capitalize">
-                                <Link to="/add_doctors">
+                                <Link to="/users">
                                     <svg
                                         className="h-8 w-8 text-gray-400"
                                         viewBox="0 0 24 24"
@@ -119,7 +119,7 @@ function AddDoctors() {
                                         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />{" "}
                                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                     </svg>
-                                    <span>All Doctors</span>
+                                    <span>All Users</span>
                                 </Link>
                             </div>
                         </li>

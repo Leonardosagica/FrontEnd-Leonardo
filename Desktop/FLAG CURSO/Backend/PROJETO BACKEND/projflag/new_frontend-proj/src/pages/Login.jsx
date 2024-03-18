@@ -27,9 +27,13 @@ function Login() {
                 setToken(data.token);
 
                 if (data.user.user_type === "patient") {
-                    navigate("/cliente");
+                    navigate("/cliente", {
+                        state: { user: data.user, token: data.token },
+                    });
                 } else if (data.user.user_type === "adm") {
-                    navigate("/adm");
+                    navigate("/adm", {
+                        state: { user: data.user, token: data.token },
+                    });
                 } else if (data.user.user_type === "doctor") {
                     navigate("/doctors");
                 }
